@@ -1,0 +1,40 @@
+{% extends 'todo/base.html' %} {% block content %}
+<h3 class="text-center">Todo App</h3>
+<hr />
+
+<div class="row">
+  <div class="col-md-6 col-sm-12 mx-auto">
+    <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+      <div class="d-flex">
+        <input
+          type="text"
+          name="text"
+          id="text"
+          class="form-control"
+          placeholder="Add todo..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="ms-2 btn btn-success btn-sm">Add</button>
+      </div>
+    </form>
+    <div class="my-5">
+      <ul class="list-group">
+        {% for todo in todos %}
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <span>{{ todo.text }}</span>
+            <a
+              class="btn btn-danger btn-sm"
+              href="{% url 'deleteTodo' todo.id %}"
+              >X</a
+            >
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
